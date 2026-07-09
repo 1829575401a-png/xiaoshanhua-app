@@ -1,0 +1,36 @@
+<!-- pages/scene/scene.wxml -->
+<scroll-view scroll-y class="scene-page">
+  <view class="scene-header">
+    <view class="scene-icon">{{scene.icon}}</view>
+    <view class="scene-meta">
+      <text class="scene-name">{{scene.name}}</text>
+      <text class="scene-progress">已学 {{learned}}/{{total}} 句</text>
+    </view>
+  </view>
+
+  <view class="sentence-list">
+    <view
+      wx:for="{{sentences}}"
+      wx:key="id"
+      class="sentence-card card {{item.done ? 'done' : ''}}"
+      bindtap="onSentenceTap"
+      data-id="{{item.id}}"
+      data-idx="{{index}}"
+    >
+      <view class="sent-order">
+        <text wx:if="{{item.done}}" class="done-check">✅</text>
+        <text wx:else class="order-num">{{index + 1}}</text>
+      </view>
+      <view class="sent-body">
+        <text class="sent-xiaoshan">{{item.xiaoshan}}</text>
+        <text class="sent-mandarin">{{item.mandarin}}</text>
+      </view>
+      <view class="sent-score" wx:if="{{item.bestScore > 0}}">
+        <text class="score-num">{{item.bestScore}}</text>
+        <text class="score-unit">分</text>
+      </view>
+    </view>
+  </view>
+
+  <view style="height: 60rpx;"></view>
+</scroll-view>

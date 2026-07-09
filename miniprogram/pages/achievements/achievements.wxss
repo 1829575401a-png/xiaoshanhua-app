@@ -1,0 +1,67 @@
+/* pages/achievements/achievements.wxss */
+.ach-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  background: #F5F5F5;
+}
+.ach-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  padding: 16rpx 8rpx 24rpx;
+}
+.ach-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1F2937;
+}
+.ach-sub {
+  font-size: 26rpx;
+  color: #6B7280;
+}
+
+.ach-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+.ach-card {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+.ach-card.locked {
+  opacity: 0.5;
+}
+.ach-icon {
+  font-size: 64rpx;
+  width: 88rpx;
+  text-align: center;
+}
+.ach-meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+.ach-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1F2937;
+}
+.ach-desc {
+  font-size: 26rpx;
+  color: #6B7280;
+}
+.ach-status {
+  width: 80rpx;
+  text-align: right;
+}
+.ach-on {
+  font-size: 26rpx;
+  color: #10B981;
+  font-weight: 600;
+}
+.ach-off {
+  font-size: 40rpx;
+}

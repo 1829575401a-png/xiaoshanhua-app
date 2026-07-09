@@ -1,0 +1,18 @@
+<!-- pages/login/login.wxml -->
+<view class="login-page">
+  <view class="login-logo">🗣️</view>
+  <view class="login-title">欢迎来到萧山话学堂</view>
+  <view class="login-sub">用微信登录，开启你的方言学习之旅</view>
+
+  <!-- 微信一键登录 -->
+  <button
+    class="login-btn"
+    open-type="getUserInfo"
+    bindgetuserinfo="onGetUserInfo"
+    wx:if="{{!loading}}"
+  >微信一键登录</button>
+
+  <button class="login-btn loading" wx:if="{{loading}}" disabled>登录中...</button>
+
+  <view class="login-tip">登录即代表同意《用户协议》与《隐私政策》</view>
+</view>

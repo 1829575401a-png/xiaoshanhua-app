@@ -1,0 +1,62 @@
+/* components/record-button/record-button.wxss */
+.rec-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.rec-btn {
+  position: relative;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: #F97316;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(249, 115, 22, 0.3);
+  transition: transform 0.1s ease;
+}
+.rec-btn:active {
+  transform: scale(0.94);
+}
+.rec-btn.recording {
+  background: #EA580C;
+}
+.rec-btn.disabled {
+  background: #FCD9B6;
+  box-shadow: none;
+}
+
+.rec-icon {
+  font-size: 72rpx;
+  line-height: 1;
+}
+
+/* 录音脉冲动画 */
+.pulse-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  border: 4rpx solid rgba(249, 115, 22, 0.6);
+  animation: pulse 1.2s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.rec-tip {
+  font-size: 26rpx;
+  color: #6B7280;
+}
+
+.rec-timer {
+  font-size: 28rpx;
+  color: #EA580C;
+  font-weight: 600;
+}

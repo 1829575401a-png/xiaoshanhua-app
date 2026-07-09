@@ -1,0 +1,111 @@
+/* pages/learn/learn.wxss */
+.learn-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  background: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+}
+
+.learn-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  padding: 16rpx 8rpx 24rpx;
+}
+.nav-back {
+  font-size: 28rpx;
+  color: #6B7280;
+  align-self: flex-start;
+}
+.nav-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1F2937;
+}
+
+.sentence-show {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20rpx;
+  padding: 56rpx 40rpx;
+  margin-bottom: 32rpx;
+}
+.xiaoshan-text {
+  font-size: 52rpx;
+  font-weight: 800;
+  color: #1F2937;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.pinyin-box {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  background: #FFF7ED;
+  padding: 12rpx 24rpx;
+  border-radius: 24rpx;
+}
+.pinyin-label {
+  font-size: 24rpx;
+  color: #EA580C;
+}
+.pinyin-arrow {
+  font-size: 20rpx;
+  color: #EA580C;
+}
+.pinyin-text {
+  font-size: 30rpx;
+  color: #EA580C;
+  text-align: center;
+  letter-spacing: 1rpx;
+}
+
+.mandarin-text {
+  font-size: 30rpx;
+  color: #6B7280;
+  text-align: center;
+}
+
+.play-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 48rpx;
+}
+.play-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+  background: #fff;
+  border: 2rpx solid #F97316;
+  border-radius: 24rpx;
+  padding: 28rpx 56rpx;
+}
+.play-btn.playing {
+  background: #FFF7ED;
+}
+.play-icon {
+  font-size: 56rpx;
+}
+.play-label {
+  font-size: 26rpx;
+  color: #F97316;
+  font-weight: 600;
+}
+
+.record-row {
+  margin-top: auto;
+  padding: 40rpx 0 60rpx;
+}
+
+.last-score {
+  text-align: center;
+  font-size: 26rpx;
+  color: #6B7280;
+  margin-top: 24rpx;
+}
+.last-num { color: #F97316; font-weight: 600; }
+.best-num { color: #10B981; font-weight: 600; }

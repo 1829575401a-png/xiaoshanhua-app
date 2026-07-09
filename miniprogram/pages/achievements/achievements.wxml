@@ -1,0 +1,27 @@
+<!-- pages/achievements/achievements.wxml -->
+<scroll-view scroll-y class="ach-page">
+  <view class="ach-header">
+    <text class="ach-title">我的成就</text>
+    <text class="ach-sub">已解锁 {{unlockedCount}}/{{total}} 个</text>
+  </view>
+
+  <view class="ach-list">
+    <view
+      wx:for="{{achievements}}"
+      wx:key="id"
+      class="ach-card card {{item.unlocked ? '' : 'locked'}}"
+    >
+      <view class="ach-icon">{{item.icon}}</view>
+      <view class="ach-meta">
+        <text class="ach-name">{{item.name}}</text>
+        <text class="ach-desc">{{item.description}}</text>
+      </view>
+      <view class="ach-status">
+        <text wx:if="{{item.unlocked}}" class="ach-on">已得</text>
+        <text wx:else class="ach-off">🔓</text>
+      </view>
+    </view>
+  </view>
+
+  <view style="height: 40rpx;"></view>
+</scroll-view>

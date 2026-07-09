@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "学习",
+  "usingComponents": {
+    "record-button": "/components/record-button/record-button",
+    "score-modal": "/components/score-modal/score-modal"
+  }
+}

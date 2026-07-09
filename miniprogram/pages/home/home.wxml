@@ -1,0 +1,62 @@
+<!-- pages/home/home.wxml -->
+<scroll-view scroll-y class="home-page">
+  <!-- 用户信息栏 -->
+  <view class="user-bar">
+    <image class="user-avatar" src="{{userInfo.avatarUrl || defaultAvatar}}" mode="aspectFill" />
+    <view class="user-meta">
+      <text class="user-name">{{userInfo.nickName || '新萧山人'}}</text>
+      <view class="streak-badge">🔥 连续学习 {{streakDays}} 天</view>
+    </view>
+  </view>
+
+  <!-- 学习数据概览 -->
+  <view class="stat-card card">
+    <view class="stat-item">
+      <text class="stat-num">{{learnedCount}}</text>
+      <text class="stat-label">已学句数</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-num">{{avgScore}}</text>
+      <text class="stat-label">平均得分</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-num">{{totalPoints}}</text>
+      <text class="stat-label">积分</text>
+    </view>
+  </view>
+
+  <!-- 今日打卡提示 -->
+  <view wx:if="{{!checkedInToday}}" class="checkin-tip">
+    <text>📅 今天还没学习，学一句就开始打卡吧～</text>
+  </view>
+
+  <!-- 场景课程列表 -->
+  <view class="scene-title">场景课程</view>
+  <view class="scene-list">
+    <view
+      wx:for="{{scenes}}"
+      wx:key="id"
+      class="scene-card card {{item.locked ? 'locked' : ''}}"
+      bindtap="onSceneTap"
+      data-id="{{item.id}}"
+      data-locked="{{item.locked}}"
+    >
+      <view class="scene-icon">{{item.icon}}</view>
+      <view class="scene-info">
+        <text class="scene-name">{{item.name}}</text>
+        <view class="progress-track">
+          <view class="progress-fill" style="width: {{item.progress}}%"></view>
+        </view>
+      </view>
+      <view class="scene-status">
+        <text wx:if="{{item.locked}}" class="lock-icon">🔒</text>
+        <text wx:elif="{{item.progress >= 100}}" class="done-icon">✅</text>
+        <text wx:else class="progress-text">{{item.progress}}%</text>
+      </view>
+    </view>
+  </view>
+
+  <view style="height: 40rpx;"></view>
+</scroll-view>

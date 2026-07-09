@@ -1,0 +1,99 @@
+/* pages/profile/profile.wxss */
+.profile-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  background: #F5F5F5;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 24rpx 16rpx 32rpx;
+}
+.profile-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: #FFE8D6;
+}
+.profile-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+.profile-name {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1F2937;
+}
+.profile-streak {
+  font-size: 26rpx;
+  color: #EA580C;
+  background: #FFF1E6;
+  padding: 6rpx 18rpx;
+  border-radius: 20rpx;
+  align-self: flex-start;
+}
+
+.profile-stat {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 32rpx;
+}
+.pstat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+.pstat-num {
+  font-size: 44rpx;
+  font-weight: 800;
+  color: #F97316;
+}
+.pstat-label {
+  font-size: 24rpx;
+  color: #6B7280;
+}
+
+.profile-section-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1F2937;
+  margin: 8rpx 8rpx 16rpx;
+}
+
+.profile-last {
+  font-size: 26rpx;
+  color: #6B7280;
+  margin-bottom: 24rpx;
+}
+
+.heatmap {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+.heat-week {
+  display: flex;
+  gap: 10rpx;
+}
+.heat-day {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 8rpx;
+  background: #F0F0F0;
+}
+.level-0 { background: #F0F0F0; }
+.level-1 { background: #FED7AA; }
+.level-2 { background: #FB923C; }
+.level-3 { background: #EA580C; }
+
+.heat-legend {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 22rpx;
+  color: #9CA3AF;
+}

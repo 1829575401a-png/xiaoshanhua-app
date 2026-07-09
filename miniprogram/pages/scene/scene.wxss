@@ -1,0 +1,94 @@
+/* pages/scene/scene.wxss */
+.scene-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  background: #F5F5F5;
+}
+
+.scene-header {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 24rpx 16rpx 32rpx;
+}
+.scene-icon {
+  font-size: 72rpx;
+  width: 100rpx;
+  text-align: center;
+}
+.scene-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+.scene-name {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #1F2937;
+}
+.scene-progress {
+  font-size: 26rpx;
+  color: #6B7280;
+}
+
+.sentence-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.sentence-card {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+.sentence-card.done {
+  opacity: 0.75;
+}
+
+.sent-order {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: #F97316;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.done-check {
+  background: #10B981;
+}
+
+.sent-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+.sent-xiaoshan {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #1F2937;
+}
+.sent-mandarin {
+  font-size: 26rpx;
+  color: #6B7280;
+}
+
+.sent-score {
+  text-align: right;
+  flex-shrink: 0;
+}
+.score-num {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: #F97316;
+}
+.score-unit {
+  font-size: 22rpx;
+  color: #F97316;
+}

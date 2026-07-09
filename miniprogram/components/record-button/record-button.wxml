@@ -1,0 +1,19 @@
+<!-- components/record-button/record-button.wxml -->
+<view class="rec-wrap">
+  <!-- 录音按钮 -->
+  <view
+    class="rec-btn {{state === 'recording' ? 'recording' : ''}} {{state === 'disabled' ? 'disabled' : ''}}"
+    bindtouchstart="onPressStart"
+    bindtouchend="onPressEnd"
+    bindtouchcancel="onPressEnd"
+  >
+    <view wx:if="{{state === 'recording'}}" class="pulse-ring"></view>
+    <text class="rec-icon">{{state === 'recording' ? '🎙️' : '🎤'}}</text>
+  </view>
+
+  <!-- 状态文案 -->
+  <text class="rec-tip">{{tipText}}</text>
+
+  <!-- 录音计时 -->
+  <text wx:if="{{state === 'recording'}}" class="rec-timer">{{seconds}}″</text>
+</view>

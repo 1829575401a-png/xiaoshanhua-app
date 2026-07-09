@@ -1,0 +1,53 @@
+<!-- pages/learn/learn.wxml -->
+<view class="learn-page">
+  <!-- 顶部导航 -->
+  <view class="learn-nav">
+    <text class="nav-back" bindtap="onBack">‹ 返回</text>
+    <text class="nav-title">{{sceneName}} · 第{{idx + 1}}/{{total}}句</text>
+  </view>
+
+  <!-- 句子展示 -->
+  <view class="sentence-show card">
+    <text class="xiaoshan-text">{{sentence.xiaoshan}}</text>
+
+    <view class="pinyin-box" bindtap="onTogglePinyin">
+      <text class="pinyin-label">吴语拼音</text>
+      <text class="pinyin-arrow">{{showPinyin ? '▼' : '▶'}}</text>
+    </view>
+    <text wx:if="{{showPinyin}}" class="pinyin-text">{{sentence.pinyin}}</text>
+
+    <text class="mandarin-text">{{sentence.mandarin}}</text>
+  </view>
+
+  <!-- 标准发音播放 -->
+  <view class="play-row">
+    <view class="play-btn {{playing ? 'playing' : ''}}" bindtap="onPlay">
+      <text class="play-icon">{{playing ? '⏸' : '🔊'}}</text>
+      <text class="play-label">标准发音</text>
+    </view>
+  </view>
+
+  <!-- 录音按钮（自定义组件）-->
+  <view class="record-row">
+    <record-button
+      id="recBtn"
+      disabled="{{scoring}}"
+      bind:complete="onRecordComplete"
+      bind:fail="onRecordFail"
+    />
+  </view>
+
+  <!-- 上次得分记录 -->
+  <view wx:if="{{lastScore > 0}}" class="last-score">
+    上次得分：<text class="last-num">{{lastScore}}</text>　最佳：<text class="best-num">{{bestScore}}</text>
+  </view>
+
+  <!-- AI 评分弹窗 -->
+  <score-modal
+    visible="{{modalVisible}}"
+    result="{{scoreResult}}"
+    isLast="{{isLast}}"
+    bind:retry="onModalRetry"
+    bind:next="onModalNext"
+  />
+</view>

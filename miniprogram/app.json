@@ -1,0 +1,46 @@
+{
+  "pages": [
+    "pages/launch/launch",
+    "pages/login/login",
+    "pages/home/home",
+    "pages/scene/scene",
+    "pages/learn/learn",
+    "pages/profile/profile",
+    "pages/achievements/achievements"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F97316",
+    "navigationBarTitleText": "萧山话学堂",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F5F5F5"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#F97316",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "学习"
+      },
+      {
+        "pagePath": "pages/achievements/achievements",
+        "text": "成就"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.record": {
+      "desc": "用于录制你的萧山话发音并进行 AI 评分"
+    }
+  },
+  "requiredPrivateInfos": [],
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

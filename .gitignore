@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# 本地数据库（由 init_db + seed_data 重建，勿入库）
+backend/data/*.db
+backend/data/*.sqlite3
+
+# 小程序依赖（若后续引入 npm）
+miniprogram/node_modules/
+
+# 系统/编辑器
+.DS_Store
+*.log
+.idea/
+.vscode/

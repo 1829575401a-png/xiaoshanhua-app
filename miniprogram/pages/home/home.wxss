@@ -1,0 +1,119 @@
+/* pages/home/home.wxss */
+.home-page {
+  min-height: 100vh;
+  padding: 24rpx;
+  background: #F5F5F5;
+}
+
+.user-bar {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 16rpx 8rpx 24rpx;
+}
+.user-avatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  background: #FFE8D6;
+}
+.user-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+.user-name {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1F2937;
+}
+.streak-badge {
+  font-size: 24rpx;
+  color: #EA580C;
+  background: #FFF1E6;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+  align-self: flex-start;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 24rpx;
+}
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+.stat-num {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #F97316;
+}
+.stat-label {
+  font-size: 24rpx;
+  color: #6B7280;
+}
+.stat-divider {
+  width: 2rpx;
+  height: 60rpx;
+  background: #F0F0F0;
+}
+
+.checkin-tip {
+  background: #FFF7ED;
+  border: 2rpx dashed #FDBA74;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  font-size: 26rpx;
+  color: #EA580C;
+  margin-bottom: 24rpx;
+}
+
+.scene-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1F2937;
+  margin: 8rpx 8rpx 20rpx;
+}
+
+.scene-card {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  margin-bottom: 20rpx;
+  transition: opacity 0.2s;
+}
+.scene-card.locked {
+  opacity: 0.6;
+}
+.scene-icon {
+  font-size: 60rpx;
+  width: 88rpx;
+  text-align: center;
+}
+.scene-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+.scene-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1F2937;
+}
+.scene-status {
+  width: 80rpx;
+  text-align: right;
+}
+.lock-icon { font-size: 40rpx; }
+.done-icon { font-size: 40rpx; color: #10B981; }
+.progress-text {
+  font-size: 28rpx;
+  color: #F97316;
+  font-weight: 600;
+}

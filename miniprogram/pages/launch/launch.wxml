@@ -1,0 +1,23 @@
+<!-- pages/launch/launch.wxml -->
+<view class="launch-page">
+  <view class="launch-logo">🗣️</view>
+  <view class="launch-name">萧山话学堂</view>
+  <view class="launch-slogan">学说萧山话，融入本地家</view>
+
+  <view class="launch-feature">
+    <view class="feat-item">
+      <text class="feat-emoji">🎯</text>
+      <text class="feat-text">场景化实用短句</text>
+    </view>
+    <view class="feat-item">
+      <text class="feat-emoji">🤖</text>
+      <text class="feat-text">AI 发音实时纠音</text>
+    </view>
+    <view class="feat-item">
+      <text class="feat-emoji">🏆</text>
+      <text class="feat-text">闯关打卡趣味学</text>
+    </view>
+  </view>
+
+  <view class="launch-skip" bindtap="onSkip">跳过 ›</view>
+</view>

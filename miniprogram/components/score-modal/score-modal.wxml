@@ -1,0 +1,27 @@
+<!-- components/score-modal/score-modal.wxml -->
+<view wx:if="{{visible}}" class="modal-mask" catchtouchmove="noop">
+  <view class="modal-card" catchtap="noop">
+    <text class="modal-title">评分结果</text>
+
+    <!-- 大号得分 + 弹性动画 -->
+    <view class="score-ring score-{{grade}}">
+      <text class="score-num">{{displayScore}}</text>
+      <text class="score-emoji">{{emoji}}</text>
+    </view>
+    <text class="score-grade">{{gradeText}}</text>
+
+    <!-- 薄弱区域 -->
+    <view wx:if="{{weakRegions.length > 0}}" class="weak-box">
+      <text class="weak-title">📍 需注意的发音</text>
+      <view wx:for="{{weakRegions}}" wx:key="idx" wx:for-index="idx" class="weak-item">
+        <text class="weak-idx">{{item.label}}</text>
+        <text class="weak-desc">{{item.reason}}</text>
+      </view>
+    </view>
+    <view wx:else class="weak-ok">✅ {{highlight || '整体发音准确'}}</view>
+
+    <!-- 操作按钮 -->
+    <button class="btn-retry" bindtap="onRetry">🔄 再试一次</button>
+    <button class="btn-next" bindtap="onNext">➡️ {{isLast ? '完成本场景' : '下一句'}}</button>
+  </view>
+</view>

@@ -1,0 +1,43 @@
+<!-- pages/profile/profile.wxml -->
+<scroll-view scroll-y class="profile-page">
+  <!-- 用户头部 -->
+  <view class="profile-header">
+    <image class="profile-avatar" src="{{userInfo.avatarUrl || defaultAvatar}}" mode="aspectFill" />
+    <view class="profile-meta">
+      <text class="profile-name">{{userInfo.nickName || '新萧山人'}}</text>
+      <view class="profile-streak">🔥 已坚持 {{streakDays}} 天</view>
+    </view>
+  </view>
+
+  <!-- 数据概览 -->
+  <view class="profile-stat card">
+    <view class="pstat"><text class="pstat-num">{{learnedCount}}</text><text class="pstat-label">已学句数</text></view>
+    <view class="pstat"><text class="pstat-num">{{avgScore}}</text><text class="pstat-label">平均得分</text></view>
+    <view class="pstat"><text class="pstat-num">{{totalPoints}}</text><text class="pstat-label">积分</text></view>
+  </view>
+
+  <!-- 最近学习 -->
+  <view class="profile-section-title">最近学习</view>
+  <view class="profile-last card">{{lastLearnedText || '还没有学习记录，去学一句吧～'}}</view>
+
+  <!-- 打卡热力图（近 30 天）-->
+  <view class="profile-section-title">打卡日历</view>
+  <view class="heatmap card">
+    <view class="heat-week" wx:for="{{heatWeeks}}" wx:key="idx" wx:for-index="idx">
+      <view
+        wx:for="{{item}}" wx:key="d"
+        class="heat-day level-{{item.level}}"
+      ></view>
+    </view>
+    <view class="heat-legend">
+      <text>少</text>
+      <view class="heat-day level-0"></view>
+      <view class="heat-day level-1"></view>
+      <view class="heat-day level-2"></view>
+      <view class="heat-day level-3"></view>
+      <text>多</text>
+    </view>
+  </view>
+
+  <view style="height: 40rpx;"></view>
+</scroll-view>
