@@ -42,6 +42,13 @@
     }
   },
   "requiredPrivateInfos": [],
+  "networkTimeout": {
+    "request": 30000,
+    "connectSocket": 30000,
+    "uploadFile": 60000,
+    "downloadFile": 60000
+  },
+  "__usePrivacyCheck__": true,
   "sitemapLocation": "sitemap.json",
   "style": "v2"
 }

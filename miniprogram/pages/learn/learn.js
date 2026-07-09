@@ -2,6 +2,7 @@
 const { getSentence, reportLearning } = require('../../services/course.js');
 const { scorePronunciation } = require('../../services/score.js');
 const audio = require('../../utils/audio.js');
+const subscribe = require('../../utils/subscribe.js');
 const mock = require('../../services/mock.js');
 
 Page({
@@ -130,6 +131,11 @@ Page({
         weak_regions: (this.data.scoreResult && this.data.scoreResult.weak_regions) || [],
       });
     } catch (e) { /* mock 模式忽略 */ }
+
+    // 学完一句后，若模板 ID 已配置，弹窗引导订阅每日提醒
+    if (subscribe.shouldPrompt('learn')) {
+      subscribe.requestReminder();
+    }
 
     if (isLast) {
       wx.showToast({ title: '🎉 本场景学完啦', icon: 'none' });

@@ -2,6 +2,7 @@
 const { getLearningStats } = require('../../services/user.js');
 const mock = require('../../services/mock.js');
 const share = require('../../utils/share.js');
+const subscribe = require('../../utils/subscribe.js');
 
 const DEFAULT_AVATAR = 'https://via.placeholder.com/100';
 
@@ -15,6 +16,7 @@ Page({
     totalPoints: 0,
     lastLearnedText: '',
     heatWeeks: [],
+    subscribeEnabled: !!subscribe.REMIND_TMPL_ID,
   },
 
   onShow() {
@@ -95,5 +97,18 @@ Page({
       lastLearnedText: '今天学了「个菜新鲜弗新鲜？」得分 85',
       heatWeeks: weeks,
     };
+  },
+
+  // 订阅开关：点击触发一次性订阅授权
+  onToggleSubscribe() {
+    if (!subscribe.REMIND_TMPL_ID) {
+      wx.showToast({ title: '订阅功能即将开放', icon: 'none' });
+      return;
+    }
+    subscribe.requestReminder().then((accepted) => {
+      if (accepted.length) {
+        wx.showToast({ title: '已开启每日提醒 ✅', icon: 'none' });
+      }
+    });
   },
 });

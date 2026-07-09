@@ -1,7 +1,8 @@
 // utils/request.js — 统一网络请求封装
 // 处理：登录态注入、401 自动刷新、错误统一提示
 
-const BASE_URL = 'https://your-api-domain.com/api/v1';
+// 开发期指向本地后端，上线前替换为云托管域名（如 https://api.xiaoshanhua.app）
+const BASE_URL = 'http://127.0.0.1:8000';
 
 /**
  * 统一请求方法

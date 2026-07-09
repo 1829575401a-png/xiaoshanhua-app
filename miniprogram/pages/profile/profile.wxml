@@ -21,6 +21,13 @@
   <view class="profile-section-title">最近学习</view>
   <view class="profile-last card">{{lastLearnedText || '还没有学习记录，去学一句吧～'}}</view>
 
+  <!-- 订阅提醒开关 -->
+  <view class="profile-section-title">学习提醒</view>
+  <view class="profile-last card subscribe-row" bindtap="onToggleSubscribe">
+    <text>🔔 每日打卡提醒</text>
+    <text class="subscribe-arrow">开启 ›</text>
+  </view>
+
   <!-- 打卡热力图（近 30 天）-->
   <view class="profile-section-title">打卡日历</view>
   <view class="heatmap card">
