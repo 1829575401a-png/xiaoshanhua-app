@@ -7,6 +7,7 @@
       <text class="profile-name">{{userInfo.nickName || '新萧山人'}}</text>
       <view class="profile-streak">🔥 已坚持 {{streakDays}} 天</view>
     </view>
+    <button class="share-btn" open-type="share">分享</button>
   </view>
 
   <!-- 数据概览 -->

@@ -8,6 +8,7 @@
 .profile-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 24rpx;
   padding: 24rpx 16rpx 32rpx;
 }
@@ -18,6 +19,7 @@
   background: #FFE8D6;
 }
 .profile-meta {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 12rpx;
@@ -34,6 +36,18 @@
   padding: 6rpx 18rpx;
   border-radius: 20rpx;
   align-self: flex-start;
+}
+.share-btn {
+  flex-shrink: 0;
+  background: #F97316;
+  color: #fff;
+  font-size: 24rpx;
+  line-height: 1.6;
+  padding: 10rpx 26rpx;
+  border-radius: 30rpx;
+}
+.share-btn::after {
+  border: none;
 }
 
 .profile-stat {

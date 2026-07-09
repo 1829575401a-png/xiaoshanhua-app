@@ -1,6 +1,7 @@
 // pages/profile/profile.js
 const { getLearningStats } = require('../../services/user.js');
 const mock = require('../../services/mock.js');
+const share = require('../../utils/share.js');
 
 const DEFAULT_AVATAR = 'https://via.placeholder.com/100';
 
@@ -18,6 +19,31 @@ Page({
 
   onShow() {
     this.loadStats();
+  },
+
+  onLoad() {
+    // 启用右上角分享菜单（朋友圈需配置海报图）
+    const menus = share.timelineEnabled()
+      ? ['shareAppMessage', 'shareTimeline']
+      : ['shareAppMessage'];
+    wx.showShareMenu({ menus, success() {}, fail() {} });
+  },
+
+  // 分享给朋友：打卡进度卡片
+  onShareAppMessage() {
+    const { streakDays, learnedCount } = this.data;
+    return share.buildCheckInShare(streakDays, learnedCount);
+  },
+
+  // 分享到朋友圈（需 SHARE_POSTER 配置）
+  onShareTimeline() {
+    if (!share.timelineEnabled()) return undefined;
+    const { streakDays } = this.data;
+    return {
+      title: `连续打卡 ${streakDays} 天 · 萧山话学堂`,
+      query: '',
+      imageUrl: share.SHARE_POSTER || undefined,
+    };
   },
 
   async loadStats() {
