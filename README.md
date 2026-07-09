@@ -83,8 +83,9 @@ curl -X POST http://127.0.0.1:8000/score/pronounce \
 # 返回 {score, mean_similarity, dtw_distance, weak_regions, grade}
 ```
 
-> MVP 阶段标准音尚未录制，评分路由以用户音频自身作回退基准（演示链路）；
-> 上线前替换为城厢音标准音文件，并接入真实 audio_url。
+> MVP 阶段标准音尚未录制，评分路由以用户音频自身作回退基准（`demo_mode=true`，演示链路）；
+> 启用真实评分只需把城厢音标准音放到 `backend/data/audio/{sentence_id}.mp3`，
+> 路由会自动读取（`demo_mode=false`），无需改动任何评分逻辑。
 
 ### 3. 小程序前端
 
@@ -92,12 +93,15 @@ curl -X POST http://127.0.0.1:8000/score/pronounce \
 
 ## 已知限制 / 待办
 
+- [x] **标准音文件接入路径（代码已就绪）**：把城厢音标准音放到 `backend/data/audio/{sentence_id}.mp3`（或 `.wav`）即自动启用；文件缺失时回退 demo 行为（`demo_mode=true`）。当前缺的只是录音素材。
 - [ ] 真实萧山话标准音录制（城厢音，需语言学顾问 + 发音人审定）
-- [ ] 评分基准由"用户音频回退"替换为标准音文件
 - [ ] 微信登录 code2session 真实接入（现为 mock）
-- [ ] 标准音音频 CDN 地址替换占位符
+- [ ] 评分映射与阈值用真实录音进一步校准（提升与人工评分相关性）
 - [ ] 阶段三正式评审会议
-- [ ] GitHub 云端仓库推送（需用户提供 PAT，OAuth token 不支持 git push）
+- [x] GitHub 云端仓库推送（https://github.com/1829575401a-png/xiaoshanhua-app）
+
+> 无语料资料阶段：前端与后端均以 mock / 回退链路跑通，标准音到位后即可无缝启用，
+> 无需改动任何评分逻辑。
 
 ## 许可证
 

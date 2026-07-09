@@ -12,11 +12,19 @@
 """
 
 import io
+import os
 import numpy as np
 import librosa
+from typing import Optional
 from fastdtw import fastdtw
 from scipy.spatial.distance import euclidean, cosine
 from scipy.signal import find_peaks
+
+# 标准音目录：backend/data/audio/{sentence_id}.mp3(.wav)
+# 录音到位后，把城厢音标准音文件丢进该目录即可启用，无需改任何逻辑。
+STANDARD_AUDIO_DIR = os.path.join(
+    os.path.dirname(os.path.dirname(__file__)), "data", "audio"
+)
 
 # 特征配置
 SR = 16000
@@ -149,6 +157,55 @@ def _detect_weak_regions(sims: np.ndarray, path: np.ndarray, threshold_pct: floa
     # 按严重度排序，最多 3 段
     result.sort(key=lambda x: -x["severity"])
     return result[:3]
+
+
+def load_standard_audio(sentence_id: str) -> Optional[bytes]:
+    """
+    按 sentence_id 从标准音目录加载真实标准发音字节。
+
+    支持扩展名：.mp3（优先）/ .wav。文件不存在返回 None，
+    调用方据此回退到 demo 行为（用用户音频自身作基准）。
+    """
+    if not sentence_id:
+        return None
+    candidates = [
+        os.path.join(STANDARD_AUDIO_DIR, f"{sentence_id}.mp3"),
+        os.path.join(STANDARD_AUDIO_DIR, f"{sentence_id}.wav"),
+        os.path.join(STANDARD_AUDIO_DIR, f"{sentence_id}.MP3"),
+    ]
+    for path in candidates:
+        if os.path.isfile(path):
+            try:
+                with open(path, "rb") as f:
+                    return f.read()
+            except Exception:
+                return None
+    return None
+
+
+def score_with_standard(
+    sentence_id: str,
+    user_audio: bytes,
+    weak_threshold_pct: float = 20.0,
+):
+    """
+    生产形态评分入口：优先用真实标准音，缺失时回退 demo。
+
+    Returns: 在 score_pronunciation 结果基础上附加
+        demo_mode: bool  是否处于回退（无标准音）状态
+        standard_audio_used: bool  是否使用了真实标准音文件
+    """
+    ref_audio = load_standard_audio(sentence_id)
+    demo_mode = ref_audio is None
+    if demo_mode:
+        # MVP 回退：没有标准音时以用户音频自身为基准（评分偏高，仅演示链路）
+        ref_audio = user_audio
+
+    result = score_pronunciation(ref_audio, user_audio, weak_threshold_pct)
+    result["demo_mode"] = demo_mode
+    result["standard_audio_used"] = not demo_mode
+    result["sentence_id"] = sentence_id
+    return result
 
 
 if __name__ == "__main__":
