@@ -1,0 +1,56 @@
+.page {
+  padding: 24rpx;
+  background: #F5F5F5;
+  min-height: 100vh;
+}
+.head {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  margin: 8rpx 8rpx 20rpx;
+}
+.empty {
+  text-align: center;
+  color: #999;
+  margin-top: 120rpx;
+  font-size: 28rpx;
+}
+.card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+.row1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.xs {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+.score {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+.score.low { color: #E8590C; }
+.score.ok  { color: #2F9E44; }
+.py {
+  font-size: 26rpx;
+  color: #F97316;
+  margin-top: 8rpx;
+}
+.md {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 8rpx;
+}
+.weak {
+  font-size: 22rpx;
+  color: #E8590C;
+  margin-top: 12rpx;
+}
+.weak.ok { color: #2F9E44; }

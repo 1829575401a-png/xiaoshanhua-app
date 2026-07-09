@@ -2,6 +2,7 @@
 课程路由 — 场景 / 句子 / 学习上报
 """
 
+import json
 import time
 
 from fastapi import APIRouter, HTTPException
@@ -15,6 +16,7 @@ class LearningReport(BaseModel):
     sentence_id: str
     scene_id: str
     score: float
+    weak_regions: list = []  # 来自评分引擎的薄弱段（秒区间 + 严重度）
 
 
 def _row_to_scene(r):
@@ -131,7 +133,8 @@ def report_learning(body: LearningReport):
 
     cur.execute(
         "INSERT INTO learning_records (id, user_id, sentence_id, score, weak_regions) VALUES (?,?,?,?,?)",
-        (f"lr_{int(time.time()*1000)}", uid, body.sentence_id, body.score, "[]"),
+        (f"lr_{int(time.time()*1000)}", uid, body.sentence_id, body.score,
+         json.dumps(body.weak_regions, ensure_ascii=False)),
     )
     # 积分：高分 +15，普通 +10
     bonus = 15 if body.score >= 80 else 10

@@ -183,4 +183,33 @@ module.exports = {
   mockUserProfile,
   mockAchievements,
   mockScore,
+  mockReviewList,
 };
+
+/**
+ * 模拟待巩固（错题本）列表
+ */
+function mockReviewList() {
+  return [
+    {
+      sentence_id: 'scene_market_1',
+      xiaoshan: '个菜新鲜弗新鲜？',
+      pinyin: 'geʔ tsʰɛ ɕiɲɕiɛ fəʔ',
+      mandarin: '这个菜新鲜吗？',
+      scene_id: 'scene_market',
+      latest_score: 62,
+      weak_regions: [{ start_sec: 0.4, end_sec: 0.7, severity: 55 }],
+      needs_review: true,
+    },
+    {
+      sentence_id: 'scene_hospital_3',
+      xiaoshan: '在哪里取药？',
+      pinyin: 'zɛ nɑ lɪ tɕʰyøʔ',
+      mandarin: '在哪里取药？',
+      scene_id: 'scene_hospital',
+      latest_score: 74,
+      weak_regions: [],
+      needs_review: true,
+    },
+  ];
+}

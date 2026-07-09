@@ -23,4 +23,11 @@ function getAchievements() {
   return get('/achievements', {}, { needAuth: true });
 }
 
-module.exports = { getUserProfile, getLearningStats, getAchievements };
+/**
+ * 获取待巩固（错题本）列表
+ */
+function getReviewList() {
+  return get('/review', {}, { needAuth: true });
+}
+
+module.exports = { getUserProfile, getLearningStats, getAchievements, getReviewList };

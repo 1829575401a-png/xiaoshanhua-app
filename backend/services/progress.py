@@ -11,6 +11,7 @@
 """
 
 import datetime
+import json
 import time
 import sqlite3
 
@@ -183,3 +184,60 @@ def get_achievement_status(user_id: str) -> list:
     rows = cur.fetchall()
     conn.close()
     return [dict(r) for r in rows]
+
+
+def get_review_list(user_id: str, threshold: float = 80.0) -> list:
+    """
+    待巩固（错题本）列表：取每句"最新一次"跟读记录，
+    若最新分 < 阈值，或存在薄弱段，则纳入复习。
+    返回按最新分升序（最弱优先）。
+    """
+    conn = get_conn()
+    cur = conn.cursor()
+    # 每句最新一条记录（id 自增，MAX(id) 即最新）
+    cur.execute(
+        """
+        SELECT lr.sentence_id, lr.score, lr.weak_regions, lr.created_at
+        FROM learning_records lr
+        WHERE lr.user_id = ?
+          AND lr.id = (
+              SELECT MAX(id) FROM learning_records
+              WHERE user_id = ? AND sentence_id = lr.sentence_id
+          )
+        """,
+        (user_id, user_id),
+    )
+    rows = cur.fetchall()
+
+    result = []
+    for r in rows:
+        score = float(r["score"]) if r["score"] is not None else 0.0
+        weak = []
+        try:
+            weak = json.loads(r["weak_regions"]) if r["weak_regions"] else []
+        except Exception:
+            weak = []
+        # 待巩固判定：最新分低于阈值，或存在薄弱段
+        if score < threshold or len(weak) > 0:
+            cur.execute(
+                "SELECT text_xiaoshan, text_pinyin, text_mandarin, scene_id "
+                "FROM sentences WHERE id=?",
+                (r["sentence_id"],),
+            )
+            s = cur.fetchone()
+            if not s:
+                continue
+            result.append({
+                "sentence_id": r["sentence_id"],
+                "xiaoshan": s["text_xiaoshan"],
+                "pinyin": s["text_pinyin"],
+                "mandarin": s["text_mandarin"],
+                "scene_id": s["scene_id"],
+                "latest_score": round(score, 1),
+                "weak_regions": weak,
+                "needs_review": score < threshold,
+            })
+
+    conn.close()
+    result.sort(key=lambda x: x["latest_score"])
+    return result

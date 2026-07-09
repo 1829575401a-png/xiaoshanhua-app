@@ -6,7 +6,8 @@
     "pages/scene/scene",
     "pages/learn/learn",
     "pages/profile/profile",
-    "pages/achievements/achievements"
+    "pages/achievements/achievements",
+    "pages/review/review"
   ],
   "window": {
     "backgroundTextStyle": "light",

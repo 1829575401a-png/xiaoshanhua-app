@@ -1,6 +1,6 @@
 // pages/home/home.js
 const { getScenes } = require('../../services/course.js');
-const { getUserProfile } = require('../../services/user.js');
+const { getUserProfile, getReviewList } = require('../../services/user.js');
 const mock = require('../../services/mock.js');
 
 const DEFAULT_AVATAR = 'https://via.placeholder.com/88';
@@ -14,6 +14,7 @@ Page({
     avgScore: 0,
     totalPoints: 0,
     checkedInToday: false,
+    reviewCount: 0,
     scenes: [],
   },
 
@@ -40,6 +41,16 @@ Page({
       });
     }
 
+    // 拉取待巩固数量
+    let reviewCount = 0;
+    try {
+      const list = await getReviewList();
+      reviewCount = (list && list.length) || 0;
+    } catch (e) {
+      reviewCount = mock.mockReviewList().length;
+    }
+    this.setData({ reviewCount });
+
     // 拉取场景课程列表
     let scenes = [];
     try {
@@ -57,6 +68,10 @@ Page({
       return;
     }
     wx.navigateTo({ url: `/pages/scene/scene?id=${id}` });
+  },
+
+  onReviewTap() {
+    wx.navigateTo({ url: '/pages/review/review' });
   },
 
   onPullDownRefresh() {

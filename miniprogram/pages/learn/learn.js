@@ -121,12 +121,13 @@ Page({
     const isLast = this.data.isLast;
     this.setData({ modalVisible: false });
 
-    // 上报学习完成（进度/积分/打卡/成就）
+    // 上报学习完成（进度/积分/打卡/成就），携带薄弱段供复习使用
     try {
       await reportLearning({
         sentence_id: this.data.sentenceId,
         scene_id: this.data.sceneId,
         score: this.data.lastScore,
+        weak_regions: (this.data.scoreResult && this.data.scoreResult.weak_regions) || [],
       });
     } catch (e) { /* mock 模式忽略 */ }
 

@@ -117,3 +117,43 @@
   color: #F97316;
   font-weight: 600;
 }
+
+/* 待巩固入口 */
+.review-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20rpx 0;
+  padding: 24rpx 28rpx;
+}
+.review-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+.review-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1F2937;
+}
+.review-sub {
+  font-size: 24rpx;
+  color: #6B7280;
+}
+.review-badge {
+  min-width: 48rpx;
+  height: 48rpx;
+  padding: 0 16rpx;
+  border-radius: 24rpx;
+  background: #E5E7EB;
+  color: #9CA3AF;
+  font-size: 28rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.review-badge.on {
+  background: #F97316;
+  color: #fff;
+}

@@ -85,3 +85,13 @@ def list_achievements():
         return []
     # 真实解锁状态：基于 user_achievements 表
     return get_achievement_status(uid)
+
+
+@router.get("/review")
+def review_list():
+    """待巩固（错题本）列表：最新分低于阈值或含薄弱段的句子"""
+    uid = _first_user_id()
+    if not uid:
+        return []
+    from services.progress import get_review_list
+    return get_review_list(uid)

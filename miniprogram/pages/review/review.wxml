@@ -1,0 +1,26 @@
+<view class="page">
+  <view class="head">待巩固 · 共 {{count}} 句</view>
+
+  <view wx:if="{{loading}}" class="empty">加载中…</view>
+
+  <view wx:elif="{{count === 0}}" class="empty">🎉 没有待巩固的句子，棒棒的！</view>
+
+  <view wx:else>
+    <view class="card"
+          wx:for="{{list}}" wx:key="sentence_id"
+          bindtap="onItemTap"
+          data-id="{{item.sentence_id}}"
+          data-scene="{{item.scene_id}}">
+      <view class="row1">
+        <text class="xs">{{item.xiaoshan}}</text>
+        <text class="score {{item.needs_review ? 'low' : 'ok'}}">{{item.latest_score}}分</text>
+      </view>
+      <view class="py">{{item.pinyin}}</view>
+      <view class="md">释义：{{item.mandarin}}</view>
+      <view wx:if="{{item.weak_regions.length > 0}}" class="weak">
+        ⚠️ 薄弱：{{item.weak_regions.length}} 处（点击去重练）
+      </view>
+      <view wx:else class="weak ok">✓ 声调待稳，去巩固一下</view>
+    </view>
+  </view>
+</view>

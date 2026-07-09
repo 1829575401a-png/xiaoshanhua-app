@@ -32,6 +32,15 @@
     <text>📅 今天还没学习，学一句就开始打卡吧～</text>
   </view>
 
+  <!-- 待巩固入口 -->
+  <view class="review-card card" bindtap="onReviewTap">
+    <view class="review-left">
+      <text class="review-title">待巩固</text>
+      <text class="review-sub">薄弱句子，点击去复习</text>
+    </view>
+    <view class="review-badge {{reviewCount > 0 ? 'on' : ''}}">{{reviewCount}}</view>
+  </view>
+
   <!-- 场景课程列表 -->
   <view class="scene-title">场景课程</view>
   <view class="scene-list">
