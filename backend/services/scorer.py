@@ -33,12 +33,31 @@ HOP = 160  # 10ms
 FMIN, FMAX = 80, 4000
 
 
+def preprocess(y: np.ndarray) -> np.ndarray:
+    """
+    真实录音鲁棒性预处理（无需语料即可生效）：
+      1. 裁剪首尾静音：去掉环境底噪与起止停顿，避免静音帧污染 MFCC。
+      2. RMS 归一化：消除音量大小带来的评分偏差，使不同设备/距离录音可比。
+    """
+    if y.size == 0:
+        return y.astype(np.float32)
+    # 裁剪静音（top_db=30 较保守，避免误裁词内停顿）
+    y_trim, _ = librosa.effects.trim(y, top_db=30)
+    if y_trim.size > 0:
+        y = y_trim
+    # RMS 归一化
+    rms = float(np.sqrt(np.mean(y ** 2)))
+    if rms > 1e-6:
+        y = y / rms
+    return y.astype(np.float32)
+
+
 def load_audio(audio_bytes: bytes, sr: int = SR):
     """从字节加载音频，返回 (waveform, sr)"""
     try:
         # 优先用 librosa（支持 mp3/wav 等，依赖 ffmpeg/soundfile）
         y, _ = librosa.load(io.BytesIO(audio_bytes), sr=sr, mono=True)
-        return y.astype(np.float32)
+        return preprocess(y.astype(np.float32))
     except Exception as e:
         raise RuntimeError(f"音频解码失败: {e}")
 

@@ -50,7 +50,7 @@ xiaoshanhua-app/
 
 - **前端**：微信小程序原生（WXML/WXSS/JS），含 tabBar、自定义组件、录音与播放
 - **后端**：Python FastAPI（零外部中间件）
-- **AI 评分**：librosa + numpy + scipy + fastdtw（39 维 MFCC + Δ + ΔΔ，DTW 对齐 + 余弦相似度）
+- **AI 评分**：librosa + numpy + scipy + fastdtw（39 维 MFCC + Δ + ΔΔ，DTW 对齐 + 余弦相似度；含静音裁剪与音量归一化预处理，对真实录音鲁棒）
 - **数据库**：SQLite（MVP，零依赖；生产可平滑迁移 MySQL/PostgreSQL）
 - **部署**：微信云托管 / 腾讯云（规划）
 
