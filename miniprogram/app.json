@@ -45,5 +45,6 @@
   },
   "__usePrivacyCheck__": true,
   "sitemapLocation": "sitemap.json",
-  "style": "v2"
+  "style": "v2",
+  "renderer": "webview"
 }

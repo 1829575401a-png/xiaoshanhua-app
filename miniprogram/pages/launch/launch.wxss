@@ -1,7 +1,10 @@
 /* pages/launch/launch.wxss */
+page {
+  background: linear-gradient(160deg, #F97316, #EA580C) !important;
+}
+
 .launch-page {
   height: 100vh;
-  background: linear-gradient(160deg, #F97316, #EA580C);
   display: flex;
   flex-direction: column;
   align-items: center;

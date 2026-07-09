@@ -40,7 +40,7 @@
     "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.30.4",
+  "libVersion": "2.19.4",
   "appid": "touristappid",
   "projectname": "xiaoshanhua-miniprogram",
   "condition": {},

@@ -1,5 +1,5 @@
 <!-- pages/launch/launch.wxml -->
-<view class="launch-page" wx:if="{{visible}}">
+<view class="launch-page">
   <view class="launch-logo">🗣️</view>
   <view class="launch-name">萧山话学堂</view>
   <view class="launch-slogan">学说萧山话，融入本地家</view>
