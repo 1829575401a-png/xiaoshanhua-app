@@ -2,11 +2,23 @@
 用户路由 — 个人概览 / 学习统计 / 成就
 """
 
+import datetime
+
 from fastapi import APIRouter
 
 from db import get_conn
+from services.progress import get_achievement_status
 
 router = APIRouter(prefix="/user", tags=["user"])
+
+
+def _first_user_id():
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("SELECT id FROM users LIMIT 1")
+    u = cur.fetchone()
+    conn.close()
+    return u["id"] if u else None
 
 
 @router.get("/profile")
@@ -26,7 +38,7 @@ def user_profile():
         "learnedCount": learned,
         "avgScore": round(float(avg), 1),
         "totalPoints": u["total_score"] or 0,
-        "checkedInToday": False,
+        "checkedInToday": (u["last_checkin_date"] == datetime.date.today().isoformat()),
     }
 
 
@@ -60,6 +72,7 @@ def learning_stats():
         "learnedCount": learned,
         "avgScore": round(float(avg), 1),
         "totalPoints": u["total_score"] or 0,
+        "checkedInToday": (u["last_checkin_date"] == today.isoformat()),
         "lastLearnedText": "今天学了「个菜新鲜弗新鲜？」得分 85" if learned else "",
         "heatWeeks": weeks,
     }
@@ -67,19 +80,8 @@ def learning_stats():
 
 @router.get("/achievements")
 def list_achievements():
-    conn = get_conn()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM achievements ORDER BY condition_value ASC")
-    rows = cur.fetchall()
-    # 演示：解锁前 2 个
-    result = []
-    for i, r in enumerate(rows):
-        result.append({
-            "id": r["id"],
-            "name": r["name"],
-            "icon": r["icon"],
-            "description": r["description"],
-            "unlocked": i < 2,
-        })
-    conn.close()
-    return result
+    uid = _first_user_id()
+    if not uid:
+        return []
+    # 真实解锁状态：基于 user_achievements 表
+    return get_achievement_status(uid)

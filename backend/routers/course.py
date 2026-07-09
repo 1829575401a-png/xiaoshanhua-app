@@ -2,6 +2,8 @@
 课程路由 — 场景 / 句子 / 学习上报
 """
 
+import time
+
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from db import get_conn
@@ -110,21 +112,41 @@ def get_sentence(sentence_id: str):
 
 @router.post("/learning/record")
 def report_learning(body: LearningReport):
-    # 实际环境需从 token 解析 user_id
-    user_id = body.sentence_id  # demo 占位
+    from services.progress import update_streak, evaluate_achievements
+
+    # MVP：无 token 鉴权，取首个用户（或创建演示用户）作为进度归属
     conn = get_conn()
     cur = conn.cursor()
     cur.execute("SELECT id FROM users LIMIT 1")
     u = cur.fetchone()
-    uid = u["id"] if u else "u_demo"
+    if not u:
+        uid = "u_demo"
+        cur.execute(
+            "INSERT INTO users (id, openid, nickname) VALUES (?, ?, '新萧山人')",
+            (uid, "demo_openid"),
+        )
+        conn.commit()
+    else:
+        uid = u["id"]
 
     cur.execute(
         "INSERT INTO learning_records (id, user_id, sentence_id, score, weak_regions) VALUES (?,?,?,?,?)",
-        (f"lr_{int(__import__('time').time()*1000)}", uid, body.sentence_id, body.score, "[]"),
+        (f"lr_{int(time.time()*1000)}", uid, body.sentence_id, body.score, "[]"),
     )
-    # 积分：跟读 +10，高分 +5
+    # 积分：高分 +15，普通 +10
     bonus = 15 if body.score >= 80 else 10
     cur.execute("UPDATE users SET total_score = total_score + ? WHERE id=?", (bonus, uid))
     conn.commit()
     conn.close()
-    return {"ok": True, "bonus_points": bonus}
+
+    # 真实进度与成就：连续打卡 + 条件解锁
+    streak = update_streak(uid)
+    new_ach = evaluate_achievements(uid)
+
+    return {
+        "ok": True,
+        "bonus_points": bonus,
+        "streak_days": streak["streak_days"],
+        "checked_in_today": streak["checked_in_today"],
+        "new_achievements": new_ach,
+    }

@@ -94,6 +94,7 @@ curl -X POST http://127.0.0.1:8000/score/pronounce \
 ## 已知限制 / 待办
 
 - [x] **标准音文件接入路径（代码已就绪）**：把城厢音标准音放到 `backend/data/audio/{sentence_id}.mp3`（或 `.wav`）即自动启用；文件缺失时回退 demo 行为（`demo_mode=true`）。当前缺的只是录音素材。
+- [x] **成就解锁与连续打卡改为真实计算**（`services/progress.py`）：跟读上报时实时评估成就（首次跟读 / 连续天数 / 场景完成 / 高分），streak 按"每日首次练习"累加、跨天断签归 1，结果写入 `user_achievements` 并幂等。
 - [ ] 真实萧山话标准音录制（城厢音，需语言学顾问 + 发音人审定）
 - [ ] 微信登录 code2session 真实接入（现为 mock）
 - [ ] 评分映射与阈值用真实录音进一步校准（提升与人工评分相关性）
