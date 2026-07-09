@@ -163,7 +163,7 @@ function mockAchievements() {
  * @param {number} variance 随机扰动幅度
  */
 function mockScore(variance = 15) {
-  const score = Math.max(55, Math.min(98, 75 + Math.round((Math.random() * 2 - 1) * variance));
+  const score = Math.max(55, Math.min(98, 75 + Math.round((Math.random() * 2 - 1) * variance)));
   const weak = score < 85
     ? [{ severity: 60, reason: '入声收尾略拖长' }, { severity: 45, reason: '"鲜"字声调偏平' }]
     : [];
