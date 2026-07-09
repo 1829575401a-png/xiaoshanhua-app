@@ -2,13 +2,17 @@
 Page({
   data: {
     _timer: null,
+    visible: false,
   },
 
   onLoad() {
-    // 2 秒后自动跳转
+    // 延迟显示，确保页面已渲染
+    this.setData({ visible: true });
+
+    // 2.5 秒后自动跳转
     this.data._timer = setTimeout(() => {
       this.goNext();
-    }, 2000);
+    }, 2500);
   },
 
   onUnload() {

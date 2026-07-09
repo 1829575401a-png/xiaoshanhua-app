@@ -45,7 +45,7 @@
   "projectname": "xiaoshanhua-miniprogram",
   "condition": {},
   "editorSetting": {
-    "tabIndent": "insertSpace",
+    "tabIndent": "insertSpaces",
     "tabSize": 2
   }
 }

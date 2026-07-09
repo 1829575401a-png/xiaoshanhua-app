@@ -4,24 +4,45 @@ const auth = require('../../utils/auth.js');
 Page({
   data: {
     loading: false,
+    avatarUrl: '',
+    nickname: '',
+    canLogin: false,
   },
 
-  // 微信授权获取用户信息（昵称头像）
-  onGetUserInfo(e) {
-    if (!e.detail.userInfo) {
-      // 用户拒绝授权
-      wx.showToast({ title: '需要授权才能开始学习哦', icon: 'none' });
-      return;
-    }
-    this.doLogin(e.detail.userInfo);
+  // 新版：选择头像
+  onChooseAvatar(e) {
+    const { avatarUrl } = e.detail;
+    this.setData({ avatarUrl });
+    this.checkCanLogin();
   },
 
-  async doLogin(userInfo) {
+  // 新版：输入昵称
+  onInputNickname(e) {
+    this.setData({ nickname: e.detail.value.trim() });
+    this.checkCanLogin();
+  },
+
+  // 检查是否可以登录
+  checkCanLogin() {
+    const { avatarUrl, nickname } = this.data;
+    this.setData({ canLogin: !!nickname });
+  },
+
+  // 执行登录
+  async doLogin() {
+    if (!this.data.canLogin || this.data.loading) return;
+
     this.setData({ loading: true });
     try {
-      // 先执行微信登录（获取 code → 后端换 token）
+      // 微信登录（获取 code → 后端换 token）
       await auth.login();
-      // 再把昵称头像补报到后端（如需）
+
+      // 保存用户信息到本地（头像/昵称）
+      wx.setStorageSync('userInfo', {
+        avatarUrl: this.data.avatarUrl,
+        nickname: this.data.nickname || '萧山学习者',
+      });
+
       this.setData({ loading: false });
       wx.showToast({ title: '登录成功', icon: 'success' });
       setTimeout(() => {
@@ -30,8 +51,19 @@ Page({
     } catch (err) {
       this.setData({ loading: false });
       console.error('登录失败', err);
-      const msg = (err && err.message) || '登录失败，请稍后再试';
-      wx.showToast({ title: msg, icon: 'none' });
+
+      // 开发期 mock 兜底：即使后端不可用也允许进入
+      wx.setStorageSync('userInfo', {
+        avatarUrl: this.data.avatarUrl,
+        nickname: this.data.nickname || '萧山学习者',
+      });
+      wx.setStorageSync('access_token', 'mock-token');
+      getApp().globalData.isLogin = true;
+
+      wx.showToast({ title: '已进入体验模式', icon: 'none' });
+      setTimeout(() => {
+        wx.switchTab({ url: '/pages/home/home' });
+      }, 800);
     }
   },
 });

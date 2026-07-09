@@ -4,13 +4,38 @@
   <view class="login-title">欢迎来到萧山话学堂</view>
   <view class="login-sub">用微信登录，开启你的方言学习之旅</view>
 
-  <!-- 微信一键登录 -->
+  <!-- 头像选择（新版 API） -->
   <button
-    class="login-btn"
-    open-type="getUserInfo"
-    bindgetuserinfo="onGetUserInfo"
+    class="avatar-btn"
+    open-type="chooseAvatar"
+    bindchooseavatar="onChooseAvatar"
     wx:if="{{!loading}}"
-  >微信一键登录</button>
+  >
+    <image
+      class="avatar-img"
+      src="{{avatarUrl || '/assets/avatar-default.png'}}"
+      mode="aspectFill"
+    />
+    <text class="avatar-tip">点击设置头像</text>
+  </button>
+
+  <!-- 昵称输入（新版 API） -->
+  <input
+    class="nickname-input"
+    type="nickname"
+    placeholder="请输入昵称"
+    value="{{nickname}}"
+    bindinput="onInputNickname"
+    wx:if="{{!loading}}"
+  />
+
+  <!-- 登录按钮 -->
+  <button
+    class="login-btn {{canLogin ? '' : 'disabled'}}"
+    bindtap="doLogin"
+    disabled="{{loading || !canLogin}}"
+    wx:if="{{!loading}}"
+  >{{nickname ? '确认登录' : '先完善信息再登录'}}</button>
 
   <button class="login-btn loading" wx:if="{{loading}}" disabled>登录中...</button>
 
