@@ -9,14 +9,23 @@ Page({
     canLogin: false,
   },
 
-  // 新版：选择头像
-  onChooseAvatar(e) {
-    const { avatarUrl } = e.detail;
-    this.setData({ avatarUrl });
-    this.checkCanLogin();
+  // 点击头像（开发期用普通选择图片）
+  onTapAvatar() {
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        this.setData({ avatarUrl: res.tempFiles[0].tempFilePath });
+      },
+      fail: () => {
+        // 用户取消或拒绝，使用默认
+        this.setData({ avatarUrl: '' });
+      }
+    });
   },
 
-  // 新版：输入昵称
+  // 输入昵称
   onInputNickname(e) {
     this.setData({ nickname: e.detail.value.trim() });
     this.checkCanLogin();
@@ -24,7 +33,7 @@ Page({
 
   // 检查是否可以登录
   checkCanLogin() {
-    const { avatarUrl, nickname } = this.data;
+    const { nickname } = this.data;
     this.setData({ canLogin: !!nickname });
   },
 
@@ -37,7 +46,7 @@ Page({
       // 微信登录（获取 code → 后端换 token）
       await auth.login();
 
-      // 保存用户信息到本地（头像/昵称）
+      // 保存用户信息到本地
       wx.setStorageSync('userInfo', {
         avatarUrl: this.data.avatarUrl,
         nickname: this.data.nickname || '萧山学习者',

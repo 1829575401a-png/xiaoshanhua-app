@@ -4,25 +4,17 @@
   <view class="login-title">欢迎来到萧山话学堂</view>
   <view class="login-sub">用微信登录，开启你的方言学习之旅</view>
 
-  <!-- 头像选择（新版 API） -->
-  <button
-    class="avatar-btn"
-    open-type="chooseAvatar"
-    bindchooseavatar="onChooseAvatar"
-    wx:if="{{!loading}}"
-  >
-    <image
-      class="avatar-img"
-      src="{{avatarUrl || ''}}"
-      mode="aspectFill"
-    />
-    <text class="avatar-tip">点击设置头像</text>
-  </button>
+  <!-- 头像显示（开发期用emoji占位） -->
+  <view class="avatar-display" bindtap="onTapAvatar">
+    <view class="avatar-circle">{{avatarUrl ? '' : '🗣️'}}</view>
+    <image wx:if="{{avatarUrl}}" class="avatar-img" src="{{avatarUrl}}" mode="aspectFill" />
+    <text class="avatar-tip">{{avatarUrl ? '已设置头像' : '点击设置头像'}}</text>
+  </view>
 
-  <!-- 昵称输入（新版 API） -->
+  <!-- 昵称输入（普通input） -->
   <input
     class="nickname-input"
-    type="nickname"
+    type="text"
     placeholder="请输入昵称"
     value="{{nickname}}"
     bindinput="onInputNickname"

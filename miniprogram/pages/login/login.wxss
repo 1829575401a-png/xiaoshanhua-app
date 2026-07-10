@@ -24,39 +24,32 @@
   margin-bottom: 80rpx;
 }
 
-/* 头像按钮 */
-.avatar-btn {
-  width: 160rpx !important;
-  height: 160rpx !important;
-  border-radius: 50% !important;
-  padding: 0 !important;
-  background: #F3F4F6 !important;
+/* 头像显示区 */
+.avatar-display {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: #F3F4F6;
   margin: 0 auto 32rpx;
-  display: flex !important;
-  flex-direction: column !important;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: none !important;
-  line-height: normal !important;
+  position: relative;
+  overflow: hidden;
 }
-.avatar-btn::after {
-  border: none !important;
+.avatar-circle {
+  font-size: 80rpx;
+  line-height: 160rpx;
+  text-align: center;
 }
 .avatar-img {
-  width: 120rpx;
-  height: 120rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  background: #E5E7EB;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.avatar-img::before {
-  content: '🗣️';
-  font-size: 60rpx;
-  display: block;
-  text-align: center;
-  line-height: 120rpx;
 }
 .avatar-tip {
   font-size: 20rpx;
