@@ -37,11 +37,6 @@
     ]
   },
   "requiredPrivateInfos": [],
-  "permission": {
-    "scope.record": {
-      "desc": "用于录制你的萧山话发音并进行 AI 评分"
-    }
-  },
   "networkTimeout": {
     "request": 30000,
     "connectSocket": 30000,
