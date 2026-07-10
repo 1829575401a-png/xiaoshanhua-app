@@ -36,13 +36,13 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "useCompilerPlugins": false,
+    "useCompilerPlugins": ["@skyline/compile-plugin", false],
     "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.19.4",
   "appid": "touristappid",
   "projectname": "xiaoshanhua-miniprogram",
+  "skylineRenderEnable": false,
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
