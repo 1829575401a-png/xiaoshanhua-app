@@ -1,21 +1,14 @@
 // components/record-button/record-button.js
-// 长按录音按钮组件
-// 状态机：idle → recording → processing → idle
-// 配置：mp3 / 16kHz / 最长 15s / 单声道（满足 PRD 7.4）
-
 Component({
   properties: {
-    // 是否禁用
     disabled: {
       type: Boolean,
       value: false,
     },
-    // 最短录音时长（秒），不足则不上传
     minDuration: {
       type: Number,
       value: 1,
     },
-    // 最长录音时长（毫秒）
     maxDuration: {
       type: Number,
       value: 15000,
@@ -23,7 +16,7 @@ Component({
   },
 
   data: {
-    state: 'idle',     // idle | recarding | processing
+    state: 'idle',
     tipText: '按住录音跟读',
     seconds: 0,
     _recManager: null,
@@ -60,13 +53,11 @@ Component({
         this.clearTimer();
         const duration = (Date.now() - this.data._startAt) / 1000;
         this.setData({ seconds: 0, state: 'idle', tipText: '按住录音跟读' });
-        // 时长校验
         if (duration < this.data.minDuration) {
           wx.showToast({ title: '录音太短，请重新录制', icon: 'none' });
           this.triggerEvent('fail', { reason: 'too_short', duration });
           return;
         }
-        // 回调父页面（携带临时路径与时长）
         this.triggerEvent('complete', {
           tempFilePath: res.tempFilePath,
           duration: Math.round(duration * 10) / 10,
@@ -78,7 +69,6 @@ Component({
         console.error('录音错误', err);
         this.triggerEvent('error', { err });
       });
-      // 录音被打断（来电等）
       mgr.onInterruptionBegin(() => {
         this.clearTimer();
         this.setData({ state: 'idle', seconds: 0, tipText: '录音已取消' });
@@ -87,15 +77,11 @@ Component({
       this.setData({ _recManager: mgr });
     },
 
-    // 手指按下：请求权限并开始录音
     onPressStart() {
       if (this.data.disabled || this.data.state === 'recording') return;
-
-      // 权限检查
       wx.getSetting({
         success: (res) => {
           if (res.authSetting['scope.record'] === false) {
-            // 曾拒绝过 → 引导去设置
             wx.showModal({
               title: '需要麦克风权限',
               content: '请在设置中开启麦克风权限后重试',
@@ -125,13 +111,11 @@ Component({
           frameSize: 10,
         });
       } catch (err) {
-        // 开发期：隐私协议未配置时走 mock
         console.warn('录音API失败，进入模拟模式', err);
         this.mockRecording();
       }
     },
 
-    // 模拟录音（开发期备用）
     mockRecording() {
       this.setData({ state: 'recording', tipText: '松开结束' });
       const timer = setInterval(() => {
@@ -141,21 +125,18 @@ Component({
       this.setData({ _timer: timer });
     },
 
-    // 手指抬起：停止录音
     onPressEnd() {
       if (this.data.state !== 'recording') return;
       this.clearTimer();
       const duration = (Date.now() - this.data._startAt) / 1000;
       this.setData({ seconds: 0, state: 'idle', tipText: '按住录音跟读' });
       
-      // 时长校验
       if (duration < this.data.minDuration) {
         wx.showToast({ title: '录音太短，请重新录制', icon: 'none' });
         this.triggerEvent('fail', { reason: 'too_short', duration });
         return;
       }
       
-      // 回调父页面（携带 mock 路径与时长）
       this.triggerEvent('complete', {
         tempFilePath: 'mock://recording.mp3',
         duration: Math.round(duration * 10) / 10,
