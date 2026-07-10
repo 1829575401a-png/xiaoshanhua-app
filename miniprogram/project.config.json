@@ -36,7 +36,7 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "useCompilerPlugins": ["@skyline/compile-plugin", false],
+    "useCompilerPlugins": false,
     "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
