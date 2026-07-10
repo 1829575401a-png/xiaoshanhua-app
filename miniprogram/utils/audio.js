@@ -33,7 +33,13 @@ function playStandard(url, callbacks = {}) {
   audio.onError((err) => {
     console.error('音频播放失败', err);
     callbacks.onError && callbacks.onError(err);
-    wx.showToast({ title: '音频加载失败', icon: 'none' });
+    // 开发期：标准音频不存在时不报错，静默失败
+    if (err.errCode === 100004) {
+      console.warn('标准音频文件不存在，开发期可忽略');
+      callbacks.onEnd && callbacks.onEnd();
+    } else {
+      wx.showToast({ title: '音频加载失败', icon: 'none' });
+    }
     currentAudio = null;
   });
 

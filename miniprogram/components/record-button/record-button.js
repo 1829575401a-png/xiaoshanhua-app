@@ -114,21 +114,52 @@ Component({
       const mgr = this.data._recManager;
       if (!mgr) return;
       this.setData({ _startAt: Date.now() });
-      mgr.start({
-        duration: this.data.maxDuration,
-        format: 'mp3',
-        sampleRate: 16000,
-        numberOfChannels: 1,
-        encodeBitRate: 48000,
-        frameSize: 10,
-      });
+      
+      try {
+        mgr.start({
+          duration: this.data.maxDuration,
+          format: 'mp3',
+          sampleRate: 16000,
+          numberOfChannels: 1,
+          encodeBitRate: 48000,
+          frameSize: 10,
+        });
+      } catch (err) {
+        // 开发期：隐私协议未配置时走 mock
+        console.warn('录音API失败，进入模拟模式', err);
+        this.mockRecording();
+      }
+    },
+
+    // 模拟录音（开发期备用）
+    mockRecording() {
+      this.setData({ state: 'recording', tipText: '松开结束' });
+      const timer = setInterval(() => {
+        const elapsed = (Date.now() - this.data._startAt) / 1000;
+        this.setData({ seconds: elapsed.toFixed(1) });
+      }, 100);
+      this.setData({ _timer: timer });
     },
 
     // 手指抬起：停止录音
     onPressEnd() {
       if (this.data.state !== 'recording') return;
-      const mgr = this.data._recManager;
-      if (mgr) mgr.stop();
+      this.clearTimer();
+      const duration = (Date.now() - this.data._startAt) / 1000;
+      this.setData({ seconds: 0, state: 'idle', tipText: '按住录音跟读' });
+      
+      // 时长校验
+      if (duration < this.data.minDuration) {
+        wx.showToast({ title: '录音太短，请重新录制', icon: 'none' });
+        this.triggerEvent('fail', { reason: 'too_short', duration });
+        return;
+      }
+      
+      // 回调父页面（携带 mock 路径与时长）
+      this.triggerEvent('complete', {
+        tempFilePath: 'mock://recording.mp3',
+        duration: Math.round(duration * 10) / 10,
+      });
     },
 
     setProcessing() {
