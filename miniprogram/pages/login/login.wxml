@@ -13,7 +13,7 @@
   >
     <image
       class="avatar-img"
-      src="{{avatarUrl || '/assets/avatar-default.png'}}"
+      src="{{avatarUrl || ''}}"
       mode="aspectFill"
     />
     <text class="avatar-tip">点击设置头像</text>

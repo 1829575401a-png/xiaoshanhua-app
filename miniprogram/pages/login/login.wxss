@@ -47,6 +47,16 @@
   height: 120rpx;
   border-radius: 50%;
   background: #E5E7EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.avatar-img::before {
+  content: '🗣️';
+  font-size: 60rpx;
+  display: block;
+  text-align: center;
+  line-height: 120rpx;
 }
 .avatar-tip {
   font-size: 20rpx;
